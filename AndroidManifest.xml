@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.bretblack.wesay.RandomThought"
+            android:name="com.bretblack.wesay.QuoteFinderActivity"
             android:label="@string/title_activity_random_thought" >
         </activity>
         <activity

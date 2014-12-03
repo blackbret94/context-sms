@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
     /** Called when the user clicks the use SMS button */
     public void useSms(View view){
     	// send a chunk to the intent
-    	Intent intent = new Intent(this, RandomThought.class);
+    	Intent intent = new Intent(this, QuoteFinderActivity.class);
     	
     	// get message
     	String message = readSms().toString();
