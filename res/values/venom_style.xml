@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Venom" parent="@android:style/Theme.Holo">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:background">@color/Venom</item>
+        <item name="android:actionBarStyle">@style/VenomActionBar</item>
+    </style>
+    
+    <style name="VenomActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+    	<item name="android:background">@color/VenomDark</item>
+    	<item name="android:itemBackground">@color/VenomDark</item>
+    	<item name="android:actionBarItemBackground">@color/VenomDark</item>
+    	<item name="android:textColor">@color/White</item>
+    </style>
+  
+</resources>
