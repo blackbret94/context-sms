@@ -22,8 +22,8 @@
     <string name="menu_delete_all">Delete all favorites</string>
     
     <!--  Colors   -->
-    <color name="VenomLight">#BA68C8</color>
-    <color name="Venom">#8E24AA</color>
-    <color name="VenomDark">#4A148C</color>
+    <color name="VenomLight">#D1C4E9</color>
+    <color name="Venom">#673AB7</color>
+    <color name="VenomDark">#512DA8</color>
 
 </resources>

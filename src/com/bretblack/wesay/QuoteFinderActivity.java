@@ -59,8 +59,8 @@ public class QuoteFinderActivity extends Activity {
 		//Bundle b = intent.getExtras();
 		// String message = b.getString(MainActivity.EXTRA_MESSAGE);
 		//String message = readSms();
-		//GlobalDb mApp = (GlobalDb) getApplicationContext();
-		//mDbHelper = mApp.getDbAdapter();
+		GlobalDb mApp = (GlobalDb) getApplicationContext();
+		mDbHelper = mApp.getDbAdapter();
 
 		// split into substrings
 		p = Pattern.compile("[^.!?\\s][^.!?]*(?:[.!?](?!['\"]?\\s|$)[^.!?]*)*[.!?]?['\"]?(?=\\s|$)");
@@ -114,7 +114,6 @@ public class QuoteFinderActivity extends Activity {
 		quote = (TextView) findViewById(R.id.quote_text);
 		String quoteString = quote.getText().toString();
 		System.out.println(quoteString);
-		System.out.println(mDbHelper != null);
 
 		// get time to use
 		Calendar c = Calendar.getInstance();
