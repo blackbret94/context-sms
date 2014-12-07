@@ -76,13 +76,13 @@ public class MainActivity extends Activity {
     	Intent intent = new Intent(this, QuoteFinderActivity.class);
     	
     	// get message
-    	String message = readSms().toString();
+    	//String message = readSms().toString();
     	
     	// send bundle
-    	Bundle b = new Bundle();
-    	b.putString("mes",message);
+    	//Bundle b = new Bundle();
+    	//b.putString("mes",message);
     	//b.putSerializable("db", mDbHelper);
-    	intent.putExtras(b);
+    	//intent.putExtras(b);
     	startActivity(intent);
     }
     

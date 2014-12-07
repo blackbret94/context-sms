@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,10 +33,17 @@ public class QuoteFinderActivity extends Activity {
 	private FavoritesDbAdapter mDbHelper;
 	/** For share button */
 	private ShareActionProvider mShareActionProvider;
+	/** For random values */
+	private Random r;
+	/** The pattern used to get sentences */
+	private Pattern p;
+	/** Matcher used to match sentences */
+	private Matcher pMatcher;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		r = new Random(); // create random generator
 
 		// set up activity
 		setContentView(R.layout.activity_random_thought);
@@ -47,16 +56,15 @@ public class QuoteFinderActivity extends Activity {
 		
 		// get the intent
 		Intent intent = getIntent();
-		Bundle b = intent.getExtras();
+		//Bundle b = intent.getExtras();
 		// String message = b.getString(MainActivity.EXTRA_MESSAGE);
-		String message = b.getString("mes");
-		GlobalDb mApp = (GlobalDb) getApplicationContext();
-		mDbHelper = mApp.getDbAdapter();
+		//String message = readSms();
+		//GlobalDb mApp = (GlobalDb) getApplicationContext();
+		//mDbHelper = mApp.getDbAdapter();
 
 		// split into substrings
-		Pattern p = Pattern
-				.compile("[^.!?\\s][^.!?]*(?:[.!?](?!['\"]?\\s|$)[^.!?]*)*[.!?]?['\"]?(?=\\s|$)");
-		Matcher pMatcher = p.matcher(message);
+		p = Pattern.compile("[^.!?\\s][^.!?]*(?:[.!?](?!['\"]?\\s|$)[^.!?]*)*[.!?]?['\"]?(?=\\s|$)");
+		/*pMatcher = p.matcher(message);
 
 		sentMatches = new ArrayList<String>();
 		while (pMatcher.find()) {
@@ -65,9 +73,9 @@ public class QuoteFinderActivity extends Activity {
 
 		// get random
 		int size = sentMatches.size();
-		Random r = new Random();
+		
 		int stringChoose = r.nextInt(size);
-		String sendString = sentMatches.get(stringChoose);
+		String sendString = sentMatches.get(stringChoose);*/
 	}
 
 	@Override
@@ -85,14 +93,15 @@ public class QuoteFinderActivity extends Activity {
 	/** responds to a button press */
 	public void next(View view) {
 		// get random
+		//String message = readSms();
 		quote = (TextView) findViewById(R.id.quote_text);
-		int size = sentMatches.size();
-		Random r = new Random();
-		int stringChoose = r.nextInt(size);
-		String sendString = sentMatches.get(stringChoose);
+		//int size = sentMatches.size();
+		//int stringChoose = r.nextInt(size);
+		//String sendString = sentMatches.get(stringChoose);
 
 		// create the text view
-		quote.setText("\"" + sendString + "\"");
+		String s = readSms();
+		quote.setText("\"" + s + "\"");
 	}
 
 	/**
@@ -114,6 +123,37 @@ public class QuoteFinderActivity extends Activity {
 		mDbHelper.open();
 		mDbHelper.createNote(c.getTime().toString(), quoteString);
 		mDbHelper.close();
+	}
+	
+	/** Reads a random SMS
+	 * @return
+	 */
+	public String readSms(){
+		// create tree
+		String smsString = new String();
+		
+		// parse inbox
+		Uri uri = Uri.parse("content://sms/inbox");
+		Cursor c = getContentResolver().query(uri, null, null, null, null);
+		startManagingCursor(c);
+		
+		c.moveToPosition(r.nextInt(c.getCount()));
+		// add the body to the string
+		String body = c.getString(c.getColumnIndexOrThrow("body")).toString();
+		c.close();
+		
+		// get a sentences from the message
+		pMatcher = p.matcher(body);
+
+		sentMatches = new ArrayList<String>();
+		while (pMatcher.find()) {
+			sentMatches.add(pMatcher.group(0));
+		}
+
+		String sendString = sentMatches.get(r.nextInt(sentMatches.size()));
+		
+		// return the string
+		return sendString;
 	}
 
 	/** Makes sure that the app does not crash when the back button is pressed */

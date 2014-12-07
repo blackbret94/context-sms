@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">WeSay</string>
-    <string name="instructions">WeSay is an app that gives you a random sentance from one of your texts - totally out of context!</string>
+    <string name="app_name">Text Awkward</string>
+    <string name="instructions">Text Awkward is an app that gives you a random sentance from one of your texts - totally out of context!</string>
     <string name="author">An app by Bret Black</string>
     <string name="action_settings">Settings</string>
     <string name="thoughts_body">Enter your thoughts here!</string>
@@ -22,8 +22,8 @@
     <string name="menu_delete_all">Delete all favorites</string>
     
     <!--  Colors   -->
-    <color name="VenomLight">#AA67D5</color>
-    <color name="Venom">#6C0AAB</color>
-    <color name="VenomDark">#45036F</color>
+    <color name="VenomLight">#BA68C8</color>
+    <color name="Venom">#8E24AA</color>
+    <color name="VenomDark">#4A148C</color>
 
 </resources>
