@@ -23,6 +23,15 @@
     	android:orientation="horizontal"
     	android:gravity="center">
     	
+    	<Button 
+	        android:id="@+id/back_thought"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_gravity="right"
+	        android:onClick="back"
+	        android:text="@string/back_thought"/>
+    
 	    <Button 
 	        android:id="@+id/add_favorite"
 	        android:layout_width="0dp"

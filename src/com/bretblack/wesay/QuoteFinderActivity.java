@@ -6,6 +6,7 @@ package com.bretblack.wesay;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,6 +40,10 @@ public class QuoteFinderActivity extends Activity {
 	private Pattern p;
 	/** Matcher used to match sentences */
 	private Matcher pMatcher;
+	/** LinkedList of generated sentences */
+	private ArrayList<String> genList; 
+	// cursor for arrayList
+	private int loc = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,28 +59,16 @@ public class QuoteFinderActivity extends Activity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		
-		// get the intent
-		Intent intent = getIntent();
-		//Bundle b = intent.getExtras();
-		// String message = b.getString(MainActivity.EXTRA_MESSAGE);
-		//String message = readSms();
+		// get the database
+		//Intent intent = getIntent();
 		GlobalDb mApp = (GlobalDb) getApplicationContext();
 		mDbHelper = mApp.getDbAdapter();
-
-		// split into substrings
-		p = Pattern.compile("[^.!?\\s][^.!?]*(?:[.!?](?!['\"]?\\s|$)[^.!?]*)*[.!?]?['\"]?(?=\\s|$)");
-		/*pMatcher = p.matcher(message);
-
-		sentMatches = new ArrayList<String>();
-		while (pMatcher.find()) {
-			sentMatches.add(pMatcher.group(0));
-		}
-
-		// get random
-		int size = sentMatches.size();
 		
-		int stringChoose = r.nextInt(size);
-		String sendString = sentMatches.get(stringChoose);*/
+		// create linked list
+		genList = new ArrayList<String>();
+
+		// create pattern
+		p = Pattern.compile("[^.!?\\s][^.!?]*(?:[.!?](?!['\"]?\\s|$)[^.!?]*)*[.!?]?['\"]?(?=\\s|$)");
 	}
 
 	@Override
@@ -90,17 +83,41 @@ public class QuoteFinderActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/** responds to a button press */
+	/** responds to a next button press 
+	 *  if it is at the end of the list,
+	 *  generate more sentences. */
 	public void next(View view) {
-		// get random
-		//String message = readSms();
+		// increment cursor
+		loc++;
+				
+		// get view
 		quote = (TextView) findViewById(R.id.quote_text);
-		//int size = sentMatches.size();
-		//int stringChoose = r.nextInt(size);
-		//String sendString = sentMatches.get(stringChoose);
-
-		// create the text view
-		String s = readSms();
+		String s;
+		
+		if(loc>=genList.size()){
+			// GET NEW SENTENCE
+			// create the text view
+			s = readSms();
+			genList.add(s);
+		} else {
+			// get the correct element 
+			s = genList.get(loc);
+		}
+		
+		// modify text
+		quote.setText("\"" + s + "\"");
+	}
+	
+	/** responds to a back button press */
+	public void back(View view) {
+		// decrement cursor
+		if (loc>0) loc--;
+		
+		// get view
+		quote = (TextView) findViewById(R.id.quote_text);
+		String s = genList.get(loc);
+		
+		// modify text
 		quote.setText("\"" + s + "\"");
 	}
 
