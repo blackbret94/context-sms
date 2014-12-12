@@ -7,8 +7,8 @@
     <string name="action_settings">Settings</string>
     <string name="thoughts_body">Enter your thoughts here!</string>
     <string name="title_activity_random_thought">SMS</string>
-    <string name="next_thought">Next</string>
-    <string name="back_thought">Back</string>
+    <string name="next_thought">Next &#62;</string>
+    <string name="back_thought">&#60; Back</string>
     <string name="quote_text">Hit "next" to begin!</string>
     <string name="start">Go!</string>
     <string name="add_favorite">Favorite</string>

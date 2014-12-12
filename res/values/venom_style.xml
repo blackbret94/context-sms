@@ -4,14 +4,17 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/White</item>
-        <item name="android:background">@color/VenomDark</item>
+        <!-- <item name="android:background">@color/VenomDark</item> -->
+        <item name="android:windowBackground">@color/Venom</item>
         <item name="android:actionBarStyle">@style/VenomActionBar</item>
     </style>
     
-    <style name="VenomActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
-    	<item name="android:background">@color/VenomDark</item>
-    	<item name="android:itemBackground">@color/VenomDark</item>
-    	<item name="android:actionBarItemBackground">@color/VenomDark</item>
+    <style name="VenomActionBar" parent="@android:style/Widget.Holo.ActionBar">
+    	<!--<item name="android:background">@color/VenomDark</item>
+    	<item name="android:popupBackground">@color/VenomDark</item>
+    	<item name="android:listSelector">@color/VenomDark</item>-->
+    	<!-- <item name="android:itemBackground">@color/VenomDark</item>
+    	<item name="android:actionBarItemBackground">@color/VenomDark</item> -->
     	<item name="android:textColor">@color/White</item>
     </style>
   

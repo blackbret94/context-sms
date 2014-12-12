@@ -1,7 +1,9 @@
 package com.bretblack.wesay;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -33,6 +35,10 @@ public class FavoritesActivity extends ListActivity {
 
 		// make each element selectable
 		registerForContextMenu(getListView());
+		
+		// make logo clickable
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
@@ -53,7 +59,11 @@ public class FavoritesActivity extends ListActivity {
 		case DELETE_ALL_ID:
 			deleteAllFavorites();
 			return true;
+		case android.R.id.home:
+			Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+		    startActivityForResult(myIntent, 0);
 		}
+		
 
 		return super.onOptionsItemSelected(item);
 	}
