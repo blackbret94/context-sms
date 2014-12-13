@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="useSms"
-        android:text="@string/start" />
+        android:text="@string/start" 
+        android:alpha="1"/>
     
     <Button
         android:id="@+id/favorites_button"

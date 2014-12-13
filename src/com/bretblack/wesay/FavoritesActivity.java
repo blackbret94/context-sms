@@ -39,6 +39,9 @@ public class FavoritesActivity extends ListActivity {
 		// make logo clickable
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		// retain fragment memory on orientation change
+		//setRetainInstance(true);
 	}
 
 	@Override

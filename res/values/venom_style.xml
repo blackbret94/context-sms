@@ -17,5 +17,4 @@
     	<item name="android:actionBarItemBackground">@color/VenomDark</item> -->
     	<item name="android:textColor">@color/White</item>
     </style>
-  
 </resources>

@@ -3,21 +3,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.bretblack.wesay.RandomThought$PlaceholderFragment" >
+    tools:context="com.bretblack.wesay.RandomThought$PlaceholderFragment"
+    android:divider="?android:attr/dividerHorizontal"
+    android:showDividers="middle"
+    android:dividerHeight="15sp" >
 
     <TextView
         android:id="@+id/quote_text"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+    	android:paddingLeft="@dimen/activity_horizontal_margin"
+    	android:paddingRight="@dimen/activity_horizontal_margin"
+    	android:paddingTop="@dimen/activity_vertical_margin"
         android:textSize="30sp"
         android:gravity="top"
         android:text="@string/quote_text" />
-<LinearLayout 
+    
+	<!--  Bottom Bar -->
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="1"
+        android:background="@color/VenomDark"
+        android:orientation="horizontal"
+        android:windowBackground="@color/VenomDark" >
+ 
+        <Button 
+	        android:id="@+id/back_thought"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_gravity="right"
+	        android:onClick="back"
+	        android:text="@string/back_thought"
+	        style="?android:attr/borderlessButtonStyle"/>
+    
+	    <Button 
+	        android:id="@+id/add_favorite"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_gravity="right"
+	        android:onClick="favorite"
+	        android:text="@string/add_favorite"
+	        style="?android:attr/borderlessButtonStyle"/>
+	    
+	    <Button 
+	        android:id="@+id/next_thought"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_gravity="right"
+	        android:onClick="next"
+	        android:text="@string/next_thought"
+	        style="?android:attr/borderlessButtonStyle"/>
+    </LinearLayout>
+<!--  <LinearLayout 
         android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:orientation="horizontal"
@@ -49,5 +94,5 @@
 	        android:layout_gravity="right"
 	        android:onClick="next"
 	        android:text="@string/next_thought"/>
-	</LinearLayout>
+	</LinearLayout> -->
 </LinearLayout>
