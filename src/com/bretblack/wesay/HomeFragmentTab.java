@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,14 +38,6 @@ public class HomeFragmentTab extends Fragment {
 	/** cursor for arrayList */
 	private int loc = -1;
 	
-	/** Set the fragment to be retained */
-	@Override
-	public void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
-		setRetainInstance(true);
-	}
-	
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		super.onCreateView(inflater, container, savedInstanceState);
@@ -68,9 +61,16 @@ public class HomeFragmentTab extends Fragment {
 		
 		// restore
 		if (savedInstanceState != null){
+			Log.v("Home","Home is not null");
 			genList = savedInstanceState.getStringArrayList("list");
-			loc = savedInstanceState.getInt("loc");	
-		} else genList = new ArrayList<String>();
+			loc = savedInstanceState.getInt("loc");
+			
+			// update the quote
+			quote.setText("\"" + genList.get(loc) + "\"");
+		} else {
+			genList = new ArrayList<String>();
+			quote.setText("\"" + readSms() + "\"");
+		}
 		
 		// return
 		return rootView;
@@ -151,7 +151,7 @@ public class HomeFragmentTab extends Fragment {
 		c.moveToPosition(r.nextInt(c.getCount()));
 		// add the body to the string
 		String body = c.getString(c.getColumnIndexOrThrow("body")).toString();
-		c.close();
+		//c.close();
 		
 		// get a sentences from the message
 		pMatcher = p.matcher(body);
@@ -160,29 +160,21 @@ public class HomeFragmentTab extends Fragment {
 		while (pMatcher.find()) {
 			sentMatches.add(pMatcher.group(0));
 		}
-
-		String sendString = sentMatches.get(r.nextInt(sentMatches.size()));
 		
-		// return the string
-		return sendString;
+		// make sure that size>0
+		if(sentMatches.size()>0){
+			return sentMatches.get(r.nextInt(sentMatches.size()));
+		} else {
+			return sentMatches.get(0);
+		}
 	}
 	
 	/** Handles change in instance state */
-	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState){
 		super.onSaveInstanceState(savedInstanceState);
 		savedInstanceState.putStringArrayList("list",genList);
 		savedInstanceState.putInt("loc",loc);	
 	}
-
-	/** Makes sure that the app does not crash when the back button is pressed */
-	/*@Override
-	public void onBackPressed() {
-		// Add data to your intent
-		finish();
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
-	}*/
 	
 	/* FOR SHARE FUNCTION
 	@Override

@@ -6,8 +6,10 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,19 +18,32 @@ import android.view.ViewGroup;
 public class MainActivity extends Activity {
 	//public final static String EXTRA_MESSAGE = "com.example.myrandomthought.MESSAGE";
 	private ActionBar.Tab textAwkward,favorites;
-	private HomeFragmentTab homeFragmentTab = new HomeFragmentTab();
-	private FavoritesFragmentTab favoritesFragmentTab = new FavoritesFragmentTab();
+	private HomeFragmentTab homeFragmentTab;
+	private FavoritesFragmentTab favoritesFragmentTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        
+        // save fragment manager
+        FragmentManager fm = getFragmentManager();
+        
+        // create home fragment if it doesn't already exist
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
+        	fm.beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
+        	
+        	homeFragmentTab = new HomeFragmentTab();
+        	homeFragmentTab.setRetainInstance(true);
+        	homeFragmentTab.setArguments(getIntent().getExtras());
+     	   	fm.beginTransaction().add(homeFragmentTab,"home").commit();
+        } else {
+        	Log.v("Main","Main is not null");
+        	homeFragmentTab = (HomeFragmentTab) fm.findFragmentByTag("home");
         }
+        
+        // create fragments if they do not already exist
+       favoritesFragmentTab=new FavoritesFragmentTab(); // saving this fragment should not matter
         
         // get and set up action bar 
         ActionBar actionBar = getActionBar();
@@ -68,111 +83,23 @@ public class MainActivity extends Activity {
 		homeFragmentTab.favorite(view);
 	}
     
-	@Override
+	/*@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here.
 		Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
 	    startActivityForResult(myIntent, 0);
 	    return true;
-	}
-
-	
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	/*public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_random_thought,
-					container, false);
-			return rootView;
-		}
-	}
-    
-    // ALL OF THIS CAN PROBABLY DIE
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
-
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-    
-    /** Called when the user clicks the favorites button */
-    /*public void goToFavorites(View view){
-    	// send a chunk to the intent
-    	Intent intent = new Intent(this, FavoritesActivity.class);
-    	
-    	// get message
-    	//String message = readSms().toString();
-    	
-    	// send
-    	//intent.putExtra(EXTRA_MESSAGE, message);
-    	startActivity(intent);
-    }*/
-    
-    /** Called when the user clicks the use SMS button */
-    /*public void useSms(View view){
-    	// send a chunk to the intent
-    	Intent intent = new Intent(this, QuoteFinderActivity.class);
-    	
-    	// get message
-    	//String message = readSms().toString();
-    	
-    	// send bundle
-    	//Bundle b = new Bundle();
-    	//b.putString("mes",message);
-    	//b.putSerializable("db", mDbHelper);
-    	//intent.putExtras(b);
-    	startActivity(intent);
-    }*/
-    
-    /** Reads SMS bodies into a tree 
-     * @return The SMS database as a giant string*/
-	/*public String readSms(){
-		// create tree
-		String smsString = new String();
-		
-		// read in sms
-		// parse inbox
-		Uri uri = Uri.parse("content://sms/inbox");
-		Cursor c = getContentResolver().query(uri, null, null, null, null);
-		startManagingCursor(c);
-		
-		if(c.moveToFirst()){
-			for(int i=0;i<c.getCount();i++){
-				// add the body to the string
-				String body = c.getString(c.getColumnIndexOrThrow("body")).toString();
-				smsString = smsString + ". " + body;
-				c.moveToNext();
-			}
-		}
-		c.close();
-		
-		// return the string
-		return smsString;
 	}*/
+	
+	/** Makes sure that the app does not crash when the back button is pressed */
+	@Override
+	public void onBackPressed() {
+		// DO NOTHING
+	}
 
     /**
      * A placeholder fragment containing a simple view.
+     * This is deprecated, to be replaced later.
      */
     public static class PlaceholderFragment extends Fragment {
 
