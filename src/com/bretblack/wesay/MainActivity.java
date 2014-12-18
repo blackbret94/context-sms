@@ -47,11 +47,6 @@ public class MainActivity extends Activity {
         actionBar.addTab(homeTab);
         actionBar.addTab(favoritesTab);
         
-        if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
-        
     }
     
     /** responds to a next button press 

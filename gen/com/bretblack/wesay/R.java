@@ -169,16 +169,22 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int card_background=0x7f020000;
+        public static final int card_background_selector=0x7f020001;
+        public static final int card_state_pressed=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f090007;
+        public static final int action_settings=0x7f09000a;
         public static final int activity_main=0x7f090002;
         public static final int add_favorite=0x7f090005;
         public static final int back_thought=0x7f090004;
+        public static final int card_listView=0x7f090009;
         public static final int container=0x7f090000;
         public static final int favorite_text=0x7f090001;
-        public static final int menu_item_share=0x7f090008;
+        public static final int line1=0x7f090007;
+        public static final int line2=0x7f090008;
+        public static final int menu_item_share=0x7f09000b;
         public static final int next_thought=0x7f090006;
         public static final int quote_text=0x7f090003;
     }
@@ -194,6 +200,8 @@ public final class R {
         public static final int fragment_main=0x7f030008;
         public static final int fragment_random_thought=0x7f030009;
         public static final int home_fragment_layout=0x7f03000a;
+        public static final int list_item_card=0x7f03000b;
+        public static final int listview=0x7f03000c;
     }
     public static final class menu {
         public static final int favorites=0x7f080000;

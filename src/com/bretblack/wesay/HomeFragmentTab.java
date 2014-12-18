@@ -37,8 +37,21 @@ public class HomeFragmentTab extends Fragment {
 	/** cursor for arrayList */
 	private int loc = -1;
 	
-	public void onStart(){
-		super.onStart();
+	/** Set the fragment to be retained */
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
+	}
+	
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+		super.onCreateView(inflater, container, savedInstanceState);
+		
+		// create view
+		View rootView = inflater.inflate(R.layout.home_fragment_layout, container, false);
+				
 		// SET UP SENTENCE GENERATION
         r = new Random(); // create random generator
         
@@ -48,18 +61,18 @@ public class HomeFragmentTab extends Fragment {
 
 		// set up activity
         //getActivity().setContentView(R.layout.activity_random_thought);
-		quote = (TextView) getView().findViewById(R.id.quote_text);
-
-		// create linked list
-		genList = new ArrayList<String>();
+		quote = (TextView) rootView.findViewById(R.id.quote_text);
 
 		// create pattern
 		p = Pattern.compile("[^.!?\\s][^.!?]*(?:[.!?](?!['\"]?\\s|$)[^.!?]*)*[.!?]?['\"]?(?=\\s|$)");
-	}
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		View rootView = inflater.inflate(R.layout.home_fragment_layout, container, false);
+		
+		// restore
+		if (savedInstanceState != null){
+			genList = savedInstanceState.getStringArrayList("list");
+			loc = savedInstanceState.getInt("loc");	
+		} else genList = new ArrayList<String>();
+		
+		// return
 		return rootView;
 	}
 	
@@ -91,14 +104,16 @@ public class HomeFragmentTab extends Fragment {
 	/** responds to a back button press */
 	public void back(View view) {
 		// decrement cursor
-		if (loc>0) loc--;
+		if (loc>0) {
+			loc--;
 		
-		// get view
-		quote = (TextView) getView().findViewById(R.id.quote_text);
-		String s = genList.get(loc);
-		
-		// modify text
-		quote.setText("\"" + s + "\"");
+			// get view
+			quote = (TextView) getView().findViewById(R.id.quote_text);
+			String s = genList.get(loc);
+			
+			// modify text
+			quote.setText("\"" + s + "\"");
+		}
 	}
 
 	/**
@@ -150,6 +165,14 @@ public class HomeFragmentTab extends Fragment {
 		
 		// return the string
 		return sendString;
+	}
+	
+	/** Handles change in instance state */
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState){
+		super.onSaveInstanceState(savedInstanceState);
+		savedInstanceState.putStringArrayList("list",genList);
+		savedInstanceState.putInt("loc",loc);	
 	}
 
 	/** Makes sure that the app does not crash when the back button is pressed */

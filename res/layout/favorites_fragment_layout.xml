@@ -7,14 +7,20 @@
 
     <ListView
         android:id="@android:id/list"
-        android:textSize="20sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" 
+        android:windowBackground="@color/White"
+        android:background="@color/White"
+    	android:textColor="@color/Black"
+    	android:dividerHeight="1sp"
+    	android:divider="@color/VenomLight"
+    	android:listSelector="@color/VenomLight"/>
 
     <TextView
         android:id="@android:id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_favorites" />
+        android:text="@string/no_favorites" 
+        android:textColor="@color/Black"/>
 
 </LinearLayout>
