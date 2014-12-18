@@ -2,24 +2,22 @@ package com.bretblack.wesay;
 
 // scheme id 4F21Tw0w0w0w0
 
-import java.util.ArrayList;
-
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 public class MainActivity extends Activity {
 	//public final static String EXTRA_MESSAGE = "com.example.myrandomthought.MESSAGE";
-	private FavoritesDbAdapter mDbHelper;
+	private ActionBar.Tab textAwkward,favorites;
+	private HomeFragmentTab homeFragmentTab = new HomeFragmentTab();
+	private FavoritesFragmentTab favoritesFragmentTab = new FavoritesFragmentTab();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +30,77 @@ public class MainActivity extends Activity {
                     .commit();
         }
         
-        // get database
-        GlobalDb mApp = (GlobalDb)getApplicationContext();
-        mDbHelper = mApp.getDbAdapter();
+        // get and set up action bar 
+        ActionBar actionBar = getActionBar();
+       // actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        
+        // set up tab icons
+        Tab homeTab = actionBar.newTab().setText("Home");
+        Tab favoritesTab = actionBar.newTab().setText("Favorites");
+        
+        // set up tab listeners
+        homeTab.setTabListener(new TabListener(homeFragmentTab));
+        favoritesTab.setTabListener(new TabListener(favoritesFragmentTab));
+        
+        // add to action bar
+        actionBar.addTab(homeTab);
+        actionBar.addTab(favoritesTab);
+        
+        if (savedInstanceState == null) {
+			getFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
+		}
+        
     }
+    
+    /** responds to a next button press 
+	 *  if it is at the end of the list,
+	 *  generate more sentences. */
+	public void next(View view) {
+		homeFragmentTab.next(view);
+	}
+	
+	/** responds to a back button press */
+	public void back(View view) {
+		homeFragmentTab.back(view);
+	}
 
+	/**
+	 * Saves a quote as a favorite
+	 */
+	public void favorite(View view) {
+		homeFragmentTab.favorite(view);
+	}
+    
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here.
+		Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+	    startActivityForResult(myIntent, 0);
+	    return true;
+	}
+
+	
+
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	/*public static class PlaceholderFragment extends Fragment {
+
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_random_thought,
+					container, false);
+			return rootView;
+		}
+	}
+    
+    // ALL OF THIS CAN PROBABLY DIE
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
@@ -45,7 +109,7 @@ public class MainActivity extends Activity {
         return true;
     }*/
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -55,10 +119,10 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
     
     /** Called when the user clicks the favorites button */
-    public void goToFavorites(View view){
+    /*public void goToFavorites(View view){
     	// send a chunk to the intent
     	Intent intent = new Intent(this, FavoritesActivity.class);
     	
@@ -68,10 +132,10 @@ public class MainActivity extends Activity {
     	// send
     	//intent.putExtra(EXTRA_MESSAGE, message);
     	startActivity(intent);
-    }
+    }*/
     
     /** Called when the user clicks the use SMS button */
-    public void useSms(View view){
+    /*public void useSms(View view){
     	// send a chunk to the intent
     	Intent intent = new Intent(this, QuoteFinderActivity.class);
     	
@@ -84,11 +148,11 @@ public class MainActivity extends Activity {
     	//b.putSerializable("db", mDbHelper);
     	//intent.putExtras(b);
     	startActivity(intent);
-    }
+    }*/
     
     /** Reads SMS bodies into a tree 
      * @return The SMS database as a giant string*/
-	public String readSms(){
+	/*public String readSms(){
 		// create tree
 		String smsString = new String();
 		
@@ -110,7 +174,7 @@ public class MainActivity extends Activity {
 		
 		// return the string
 		return smsString;
-	}
+	}*/
 
     /**
      * A placeholder fragment containing a simple view.
