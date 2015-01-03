@@ -218,8 +218,9 @@ public final class R {
         public static final int favorites_button=0x7f06000c;
         public static final int hello_world=0x7f06000e;
         public static final int instructions=0x7f060001;
-        public static final int menu_delete=0x7f060012;
-        public static final int menu_delete_all=0x7f060013;
+        public static final int menu_copy=0x7f060012;
+        public static final int menu_delete=0x7f060013;
+        public static final int menu_delete_all=0x7f060014;
         public static final int menu_insert=0x7f060011;
         public static final int next_thought=0x7f060006;
         public static final int no_favorites=0x7f06000f;

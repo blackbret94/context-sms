@@ -1,8 +1,10 @@
 package com.bretblack.wesay;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -21,6 +23,7 @@ public class FavoritesFragmentTab extends ListFragment {
 	public static final int INSERT_ID = Menu.FIRST;
 	private static final int DELETE_ID = Menu.FIRST + 1;
 	private static final int DELETE_ALL_ID = Menu.FIRST + 2;
+	private static final int COPY_ID = Menu.FIRST+3;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -89,15 +92,28 @@ public class FavoritesFragmentTab extends ListFragment {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		menu.add(0, DELETE_ID, 0, R.string.menu_delete);
+		menu.add(1, DELETE_ID, 1, R.string.menu_delete);
+		menu.add(0, COPY_ID,0,R.string.menu_copy);
 	}
 
 	// responds to the selection of "DELETE" on a context menu
 	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		
 		switch (item.getItemId()) {
+		case COPY_ID:
+			// Gets a handle to the clipboard service.
+			ClipboardManager clipboard = (ClipboardManager)
+			        getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+			Cursor c = mDbHelper.fetchNote(info.id);
+			String text = c.getString(2);
+			c.close();
+			ClipData clip = ClipData.newPlainText("copied favorite",text);
+			clipboard.setPrimaryClip(clip);
+			break;
 		case DELETE_ID:
-			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-					.getMenuInfo();
+			
 			mDbHelper.deleteNote(info.id);
 			fillData();
 			return true;

@@ -19,6 +19,7 @@
     <string name="no_favorites">There are no favorites to display!  Try favoriting some messages and then come back!</string>
     <string name="title_activity_favorites_db_adapter">FavoritesDbAdapter</string>
     <string name="menu_insert">Add Item</string>
+    <string name="menu_copy">Copy</string>
     <string name="menu_delete">Delete favorite</string>
     <string name="menu_delete_all">Delete all favorites</string>
     
