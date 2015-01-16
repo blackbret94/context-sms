@@ -170,7 +170,9 @@ public class HomeFragmentTab extends Fragment {
 	}
 	
 	/** Handles change in instance state */
+	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState){
+		Log.v("Instance state","Saving instance state...");
 		super.onSaveInstanceState(savedInstanceState);
 		savedInstanceState.putStringArrayList("list",genList);
 		savedInstanceState.putInt("loc",loc);	

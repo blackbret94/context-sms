@@ -28,10 +28,13 @@ public class MainActivity extends Activity {
         
         // save fragment manager
         FragmentManager fm = getFragmentManager();
+        homeFragmentTab = (HomeFragmentTab) fm.findFragmentByTag("home");
         
         // create home fragment if it doesn't already exist
-        if (savedInstanceState == null) {
+        if (homeFragmentTab == null) {
         	fm.beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
+        	
+        	Log.v("Activity","Activity says it's null");
         	
         	homeFragmentTab = new HomeFragmentTab();
         	homeFragmentTab.setRetainInstance(true);
@@ -39,7 +42,7 @@ public class MainActivity extends Activity {
      	   	fm.beginTransaction().add(homeFragmentTab,"home").commit();
         } else {
         	Log.v("Main","Main is not null");
-        	homeFragmentTab = (HomeFragmentTab) fm.findFragmentByTag("home");
+        	//homeFragmentTab = (HomeFragmentTab) fm.findFragmentByTag("home");
         }
         
         // create fragments if they do not already exist
