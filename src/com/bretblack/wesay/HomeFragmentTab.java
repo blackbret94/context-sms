@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Collections;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -34,7 +35,8 @@ public class HomeFragmentTab extends Fragment {
 	/** Matcher used to match sentences */
 	private Matcher pMatcher;
 	/** LinkedList of generated sentences */
-	private ArrayList<String> genList; 
+	private ArrayList<String> genList;
+    private ArrayList<String> newList;
 	/** cursor for arrayList */
 	private int loc = -1;
 	
@@ -71,7 +73,10 @@ public class HomeFragmentTab extends Fragment {
 			genList = new ArrayList<String>();
 			quote.setText("\"" + readSms() + "\"");
 		}
-		
+
+        newList = readSms();
+        Collections.shuffle(newList);
+
 		// return
 		return rootView;
 	}
@@ -88,9 +93,7 @@ public class HomeFragmentTab extends Fragment {
 		String s;
 		
 		if(loc>=genList.size()){
-			// GET NEW SENTENCE
-			// create the text view
-			s = readSms();
+            s = newList.remove(newList.size()-1);
 			genList.add(s);
 		} else {
 			// get the correct element 
@@ -139,7 +142,7 @@ public class HomeFragmentTab extends Fragment {
 	/** Reads a random SMS
 	 * @return
 	 */
-	public String readSms(){
+	public ArrayList<String> readSms(){
 		// create tree
 		String smsString = new String();
 		
@@ -161,12 +164,7 @@ public class HomeFragmentTab extends Fragment {
 			sentMatches.add(pMatcher.group(0));
 		}
 		
-		// make sure that size>0
-		if(sentMatches.size()>0){
-			return sentMatches.get(r.nextInt(sentMatches.size()));
-		} else {
-			return sentMatches.get(0);
-		}
+		return sentMatches;
 	}
 	
 	/** Handles change in instance state */
