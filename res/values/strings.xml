@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--  HOME AND FAVORITES -->
     <string name="app_name">ConText SMS</string>
     <string name="instructions">ConText SMS gives you a random sentance from one of your texts - completely out of context!</string>
     <string name="author">An app by Bret Black</string>
@@ -15,16 +16,39 @@
     <string name="share">Share</string>
     <string name="favorites_button">Favorites</string>
     <string name="title_activity_favorites">Favorites</string>
-    <string name="hello_world">Hello world!</string>
     <string name="no_favorites">There are no favorites to display!  Try favoriting some messages and then come back!</string>
     <string name="title_activity_favorites_db_adapter">FavoritesDbAdapter</string>
+    <string name="hello_world">Hello World</string>
+
+    <!-- MENUS -->
     <string name="menu_insert">Add Item</string>
     <string name="menu_copy">Copy</string>
     <string name="menu_delete">Delete favorite</string>
     <string name="menu_delete_all">Delete all favorites</string>
-    
-    <!--  Colors   -->
-    <color name="VenomLight">#D1C4E9</color>
+    <string name="menu_settings">Settings</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="rate_this_app">Rate This App</string>
+    <string name="rate_this_app_summary">Reviews and feedback are appreciated!</string>
+    <string name="main_text_size">Main Text Size</string>
+    <string name="visit_my_website">Visit My Website</string>
+    <string name="visit_my_website_summary">For more apps and games by Bret Black</string>
+    <string name="favorite_text_size">Favorite Text Size</string>
+    <string name="summary_main_text_size">The size of the text of generated sentences</string>
+    <string name="summary_favorite_text_size">The size of the text of favorites</string>
+    <string-array name="main_text_entries">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
+	<string-array name="main_text_entryValues">
+	    <item>16</item>
+        <item>18</item>
+        <item>20</item>
+	</string-array>
+	
+	<!--  Colors  -->
+	<color name="VenomLight">#D1C4E9</color>
     <color name="Venom">#673AB7</color>
     <color name="VenomDark">#512DA8</color>
 

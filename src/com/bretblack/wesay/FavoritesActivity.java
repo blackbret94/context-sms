@@ -1,4 +1,5 @@
 package com.bretblack.wesay;
+/** DEPRECATED, use FavoritesFragmentTab instead */
 
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -6,7 +7,6 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.SimpleCursorAdapter;
 
 public class FavoritesActivity extends ListActivity {
 	private int mFavoriteNumber;

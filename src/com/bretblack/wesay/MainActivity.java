@@ -9,9 +9,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,11 +20,16 @@ public class MainActivity extends Activity {
 	private ActionBar.Tab textAwkward,favorites;
 	private HomeFragmentTab homeFragmentTab;
 	private FavoritesFragmentTab favoritesFragmentTab;
+	private SettingsFragment settingsFragment;
+	private static final int SETTINGS = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        // set default settings values
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, true); // CHANGE THIS TO FALSE LATER
         
         // save fragment manager
         FragmentManager fm = getFragmentManager();
@@ -46,25 +51,28 @@ public class MainActivity extends Activity {
         }
         
         // create fragments if they do not already exist
-       favoritesFragmentTab=new FavoritesFragmentTab(); // saving this fragment should not matter
-        
-        // get and set up action bar 
-        ActionBar actionBar = getActionBar();
+       favoritesFragmentTab = new FavoritesFragmentTab(); // saving this fragment should not matter
+       settingsFragment = new SettingsFragment();
+       
+       // get and set up action bar 
+       ActionBar actionBar = getActionBar();
        // actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+       actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         
         // set up tab icons
         Tab homeTab = actionBar.newTab().setText("Home");
         Tab favoritesTab = actionBar.newTab().setText("Favorites");
+        Tab settingsTab = actionBar.newTab().setText(R.string.menu_settings);
         
         // set up tab listeners
         homeTab.setTabListener(new TabListener(homeFragmentTab));
         favoritesTab.setTabListener(new TabListener(favoritesFragmentTab));
+        settingsTab.setTabListener(new TabListener(settingsFragment));
         
         // add to action bar
         actionBar.addTab(homeTab);
         actionBar.addTab(favoritesTab);
-        
+        actionBar.addTab(settingsTab);
     }
     
     /** responds to a next button press 
@@ -85,6 +93,43 @@ public class MainActivity extends Activity {
 	public void favorite(View view) {
 		homeFragmentTab.favorite(view);
 	}
+	
+	/** Shares with Facebook */
+	public void shareWithFacebook(String s){
+		String mySharedLink = "<some_link>";
+		String myAppId = "1619930601560074";
+
+		Intent shareIntent = new Intent();
+		shareIntent.setAction(Intent.ACTION_SEND);
+		shareIntent.setType("text/plain");
+		shareIntent.putExtra(Intent.EXTRA_TEXT, mySharedLink);
+
+		// Include your Facebook App Id for attribution
+		shareIntent.putExtra("com.facebook.platform.extra.APPLICATION_ID", myAppId);
+
+		//startActivityForResult(Intent.createChooser(shareIntent, "Share"), myRequestId);
+	}
+	/*
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// this is temporarily used to see that the list works
+		boolean result = super.onCreateOptionsMenu(menu);
+		// menu.add(0, INSERT_ID, 0, R.string.menu_insert);
+		menu.add(0, SETTINGS, 0, R.string.menu_settings);
+		return result;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case SETTINGS:
+			deleteAllFavorites();
+			return true;
+		}
+		
+
+		return super.onOptionsItemSelected(item);
+	}*/
     
 	/*@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

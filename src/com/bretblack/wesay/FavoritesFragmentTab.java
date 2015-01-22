@@ -1,13 +1,13 @@
 package com.bretblack.wesay;
 
-import android.app.Fragment;
 import android.app.ListFragment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
+import android.preference.PreferenceManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -16,8 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 public class FavoritesFragmentTab extends ListFragment {
+	/** The text view displaying a quote */
+	private TextView favorite;
 	private int mFavoriteNumber;
 	private FavoritesDbAdapter mDbHelper;
 	public static final int INSERT_ID = Menu.FIRST;
@@ -28,21 +32,30 @@ public class FavoritesFragmentTab extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.favorites_fragment_layout, container, false);
+		
+		// set up text view
+		
+		//favorite = (TextView) rootView.findViewById(R.id.empty_list);
+		//if (favorite != null) resizeText();
+				
 		return rootView;
 	}
 	
 	public void onStart() {
 		super.onStart();
-		//setContentView(R.layout.fragment_favorites);
-
+				
 		GlobalDb mApp = (GlobalDb) getActivity().getApplicationContext();
 		mDbHelper = mApp.getDbAdapter();
 		mDbHelper.open();
 		fillData();
-
+		
+		// resize favorites
+		//favorite = (TextView) getListView().findViewById(R.id.favorite_text);
+		//if (favorite != null) 
+		//resizeText();
+		
 		// make each element selectable
 		registerForContextMenu(getListView());
-		
 		
 		// retain fragment memory on orientation change
 		//setRetainInstance(true);
@@ -144,11 +157,21 @@ public class FavoritesFragmentTab extends ListFragment {
 				R.layout.favorite, c, from, to);
 		setListAdapter(notes);
 	}
+	
+	/** Gets the size of the text, and adjusts the textview */
+	private void resizeText(){
+		// get preference
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		String size = sharedPref.getString("main_text_size", "");
+		
+		// adjust font size
+		favorite.setTextSize(Float.parseFloat(size));
+	}
 
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment {
+	/*public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
 		}
@@ -160,5 +183,5 @@ public class FavoritesFragmentTab extends ListFragment {
 					container, false);
 			return rootView;
 		}
-	}
+	}*/
 }

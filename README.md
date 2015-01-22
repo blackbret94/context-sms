@@ -8,6 +8,7 @@ This project began in May 2014 but was abandoned after a few days.  It represent
 ===========
 Version 1.1
 ===========
-+
-+
++ Added settings menu
+  + Adjustable text size for generated sentences.
+  + Adjustable text size for favorites.
 + Fixed background color when there are no favorites to be displayed

@@ -8,9 +8,11 @@ import java.util.regex.Pattern;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,10 +54,10 @@ public class HomeFragmentTab extends Fragment {
         GlobalDb mApp = (GlobalDb)getActivity().getApplicationContext();
         mDbHelper = mApp.getDbAdapter();
 
-		// set up activity
-        //getActivity().setContentView(R.layout.activity_random_thought);
+		// set up text view
 		quote = (TextView) rootView.findViewById(R.id.quote_text);
-
+		resizeText();
+		
 		// create pattern
 		p = Pattern.compile("[^.!?\\s][^.!?]*(?:[.!?](?!['\"]?\\s|$)[^.!?]*)*[.!?]?['\"]?(?=\\s|$)");
 		
@@ -175,7 +177,10 @@ public class HomeFragmentTab extends Fragment {
 		Log.v("Instance state","Saving instance state...");
 		super.onSaveInstanceState(savedInstanceState);
 		savedInstanceState.putStringArrayList("list",genList);
-		savedInstanceState.putInt("loc",loc);	
+		savedInstanceState.putInt("loc",loc);
+		
+		// check for change in text size
+		resizeText();
 	}
 	
 	/* FOR SHARE FUNCTION
@@ -199,5 +204,22 @@ public class HomeFragmentTab extends Fragment {
 	    if (mShareActionProvider != null) {
 	        mShareActionProvider.setShareIntent(shareIntent);
 	    }
+	}
+	
+	/** Gets the size of the text, and adjusts the textview */
+	private void resizeText(){
+		// get preference
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		String size = sharedPref.getString("main_text_size", "");
+		
+		// adjust font size
+		quote.setTextSize(Float.parseFloat(size));
+		/*if (size.equals("small")){
+			quote.setTextSize(16);
+		} else if (size.equals("medium")){
+			quote.setTextSize(18);
+		} else {
+			quote.setTextSize(20);
+		}*/
 	}
 }
