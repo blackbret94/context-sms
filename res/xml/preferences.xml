@@ -20,6 +20,12 @@
                 android:entries="@array/main_text_entries"
                 android:entryValues="@array/main_text_entryValues"
                 android:defaultValue="18"/>
+        
+        <Preference
+            android:title="Delete All Favorites"
+            android:summary="Removes all favorited items"
+            android:key="delete_all">
+        </Preference>
 
     </PreferenceCategory>
     
@@ -27,13 +33,13 @@
         android:title="Backup">
         
         <Preference
-            android:title="Export favorites"
+            android:title="Export Favorites"
             android:summary="Backup your favorites to a text file"
             android:key="export">
         </Preference>
         
         <Preference
-            android:title="Import favorites"
+            android:title="Import Favorites"
             android:summary="Load favorites from a text file"
             android:key="import">
         </Preference>
