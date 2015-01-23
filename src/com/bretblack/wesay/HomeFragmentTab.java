@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomeFragmentTab extends Fragment {
 	/** The text view displaying a quote */
@@ -136,6 +137,9 @@ public class HomeFragmentTab extends Fragment {
 		mDbHelper.open();
 		mDbHelper.createNote(c.getTime().toString(), quoteString);
 		mDbHelper.close();
+		
+		Toast.makeText(getActivity().getBaseContext(), "Favorited!",
+		Toast.LENGTH_SHORT).show();
 	}
 	
 	/** Reads a random SMS
@@ -167,7 +171,7 @@ public class HomeFragmentTab extends Fragment {
 		if(sentMatches.size()>0){
 			return sentMatches.get(r.nextInt(sentMatches.size()));
 		} else {
-			return sentMatches.get(0);
+			return readSms();
 		}
 	}
 	

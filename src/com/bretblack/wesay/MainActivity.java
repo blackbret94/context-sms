@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         // set default settings values
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, true); // CHANGE THIS TO FALSE LATER
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         
         // save fragment manager
         FragmentManager fm = getFragmentManager();

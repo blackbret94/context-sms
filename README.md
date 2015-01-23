@@ -11,4 +11,8 @@ Version 1.1
 + Added settings menu
   + Adjustable text size for generated sentences.
   + Adjustable text size for favorites.
+  + Export favorites
+  + 
 + Fixed background color when there are no favorites to be displayed
++ Toast message when sentences are favorited
++ Fixed crash related to empty text messages

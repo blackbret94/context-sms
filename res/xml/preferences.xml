@@ -22,6 +22,22 @@
                 android:defaultValue="18"/>
 
     </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="Backup">
+        
+        <Preference
+            android:title="Export favorites"
+            android:summary="Backup your favorites to a text file"
+            android:key="export">
+        </Preference>
+        
+        <Preference
+            android:title="Import favorites"
+            android:summary="Load favorites from a text file"
+            android:key="import">
+        </Preference>
+    </PreferenceCategory>
     <PreferenceCategory
             android:title="@string/about">
         
